@@ -561,14 +561,18 @@ object {
 #main {
     width: 1024px;
     margin: auto;
+    margin-top: 20px;
 }
 #primary {
-    width: 750px;
+    width: 720px;
     float: left;
 }
 #secondary {
-    width:220px;
+    width:260px;
     float: right;
+    padding: 10px;
+    background: url(images/sidebar-background.png) repeat;
+    border: 4px double #a22;
 }
 footer {
     clear: both;
@@ -644,3 +648,17 @@ article img.entry-image {
     height: 160px;
     border: 0;
 }
+
+#site-header {
+    text-align: center;
+    margin-bottom: 20px;
+}
+    #site-header h1 {
+        font-size: 1.5em;
+        font-weight: bold;
+    }
+    #site-header h1 a,
+    #site-header h1 a:visited {
+        color: #fff;
+        text-decoration: none;
+    }
