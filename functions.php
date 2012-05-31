@@ -120,3 +120,20 @@ add_action( 'wp_enqueue_scripts', 'eamann_scripts' );
  * Implement the Custom Header feature
  */
 //require( get_template_directory() . '/inc/custom-header.php' );
+
+/**
+ * Fetch the featured image URL for front-page posts.
+ */
+function eamann_featured_image() {
+	global $post;
+
+	if ( has_post_thumbnail( $post->ID ) ) {
+		echo get_the_post_thumbnail( $post->ID, 'eamann_featured' );
+	} else {
+		$id = (int) $post->ID;
+
+		echo get_stylesheet_directory_uri() . '/images/default-banner-' . ( $id % 7 ) . '.png';
+	}
+}
+
+add_image_size( 'eamann_featured', 340, 160 );

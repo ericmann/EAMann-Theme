@@ -47,7 +47,7 @@ html {
 	-ms-text-size-adjust: 100%; /* www.456bereastreet.com/archive/201012/controlling_text_size_in_safari_for_ios_without_disabling_user_zoom/ */
 }
 body {
-	background: #fff;
+	background: #fff url(images/background.png) repeat;
 }
 article,
 aside,
@@ -553,4 +553,94 @@ object {
 /* Search widget */
 #searchsubmit {
 	display: none;
+}
+
+
+/* =Custom
+------------------------------------------------ */
+#main {
+    width: 1024px;
+    margin: auto;
+}
+#primary {
+    width: 750px;
+    float: left;
+}
+#secondary {
+    width:220px;
+    float: right;
+}
+footer {
+    clear: both;
+}
+
+div[role="main"] article {
+    width: 360px;
+    float: left;
+    margin-bottom: 30px;
+}
+
+article {
+    width: 340px;
+    height: 250px;
+    float: left;
+    position: relative;
+}
+
+article h4 {
+    top: 85px;
+    left: 0;
+    padding: 6px 24px;
+    width: 240px;
+    font-size: 90%;
+    position: absolute;
+    font-weight: bold;
+    color: #fff;
+}
+
+article a[rel="bookmark"]:hover h4 {
+    text-decoration: underline;
+}
+
+article h4.category-biz {
+    background: orange;
+}
+
+article h4.category-writing {
+    background: #87ceeb;
+}
+
+article h4.category-faith {
+    background: blue;
+}
+
+article h4.category-tech {
+    background: green;
+}
+
+article h5 {
+    padding: 5px 25px 3px;
+    font-size: 60%;
+    left: 0;
+    position: absolute;
+    top: 125px;
+    color: #fff;
+    text-transform: uppercase;
+    background: #333;
+    border-top: #444 solid 1px;
+    border-right: #444 solid 1px;
+    border-bottom: #444 solid 1px;
+}
+article h5 a,
+article h5 a:visited,
+article h5 a:active,
+article h5 a:hover {
+    color: #fff;
+    text-decoration: none;
+}
+
+article img.entry-image {
+    width: 340px;
+    height: 160px;
+    border: 0;
 }
