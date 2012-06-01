@@ -20,31 +20,34 @@ get_header(); ?>
 			<?php
 				$latest_args = array(
 					'posts_per_page' => 4,
-					'tax_query' => array(
+					'tax_query'      => array(
 						array(
 							'taxonomy' => 'post_format',
 							'field'    => 'slug',
-							'terms'    => array( 'post-format-aside' ),
+							'terms'    => array( 'post-format-aside', 'post-format-status' ),
 							'operator' => 'NOT IN'
 						)
 					)
 				);
 
+				$status_args = array(
+					'posts_per_page' => 1,
+					'tax_query'      => array(
+						array(
+							'taxonomy' => 'post_format',
+							'field'    => 'slug',
+							'terms'    => array( 'post-format-status' ),
+						)
+					)
+				);
+
 				$latest = new WP_Query( $latest_args );
+				$status = new WP_Query( $status_args );
 			?>
 			<?php if ( $latest->have_posts() ) : ?>
 
-				<?php /* Start the Loop */ ?>
 				<?php while ( $latest->have_posts() ) : $latest->the_post(); ?>
-					<?php echo get_post_format(); ?>
-					<?php
-						/* Include the Post-Format-specific template for the content.
-						 * If you want to overload this in a child theme then include a file
-						 * called content-___.php (where ___ is the Post Format name) and that will be used instead.
-						 */
-						get_template_part( 'front', 'single' );
-					?>
-
+					<?php get_template_part( 'front', 'single' ); ?>
 				<?php endwhile; ?>
 
 			<?php elseif ( current_user_can( 'edit_posts' ) ) : ?>
@@ -52,6 +55,47 @@ get_header(); ?>
 				<?php get_template_part( 'no-results', 'index' ); ?>
 
 			<?php endif; ?>
+
+			<?php if ( $status->have_posts() ) : while ( $status->have_posts() ) : $status->the_post(); ?>
+
+				<aside class="status">
+					<?php the_content(); ?>
+				</aside>
+
+			<?php endwhile; endif; ?>
+
+			<?php foreach ( array( 'biz', 'writing', 'faith', 'tech' ) as $category ) {
+				$args = array(
+					'posts_per_page' => 5,
+					'tax_query'      => array(
+						array(
+							'taxonomy' => 'post_format',
+							'field'    => 'slug',
+							'terms'    => array( 'post-format-aside', 'post-format-status' ),
+							'operator' => 'NOT IN'
+						)
+					),
+					'post__not_in'   => wp_list_pluck( $latest->posts, 'ID' ),
+					'category_name'  => $category
+				);
+
+				$cat_query = new WP_Query( $args );
+
+				$first = true;
+
+				if ( $cat_query->have_posts() ) : while ( $cat_query->have_posts() ) : $cat_query->the_post();
+					if ( $first ) {
+						$first = false;
+						get_template_part( 'front', 'category' );
+					} else { ?>
+						<li><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></li>
+					<?php } ?>
+				<?php endwhile; ?>
+					</ul>
+					</article>
+				<?php endif; ?>
+
+			<?php } ?>
 
 			</div><!-- #content -->
 		</div><!-- #primary .site-content -->

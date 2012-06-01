@@ -74,7 +74,7 @@ function eamann_setup() {
 	/**
 	 * Add support for the Aside Post Formats
 	 */
-	add_theme_support( 'post-formats', array( 'aside', ) );
+	add_theme_support( 'post-formats', array( 'aside', 'status' ) );
 }
 endif; // eamann_setup
 add_action( 'after_setup_theme', 'eamann_setup' );
@@ -104,6 +104,8 @@ function eamann_scripts() {
 
 	wp_enqueue_style( 'style', get_stylesheet_uri() );
 
+	wp_enqueue_style( 'dancing-font', 'http://fonts.googleapis.com/css?family=Dancing+Script:700' );
+
 	wp_enqueue_script( 'small-menu', get_template_directory_uri() . '/js/small-menu.js', array( 'jquery' ), '20120206', true );
 
 	if ( is_singular() && comments_open() && get_option( 'thread_comments' ) ) {
@@ -132,7 +134,7 @@ function eamann_featured_image() {
 	} else {
 		$id = (int) $post->ID;
 
-		echo get_stylesheet_directory_uri() . '/images/default-banner-' . ( $id % 7 ) . '.png';
+		echo get_stylesheet_directory_uri() . '/images/default-banner-' . ( $id % 8 ) . '.png';
 	}
 }
 

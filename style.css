@@ -649,6 +649,74 @@ article img.entry-image {
     border: 0;
 }
 
+#content aside.status {
+    top: -20px;
+    position: relative;
+    padding-left: 40px;
+    font-size: 1.6em;
+    color: #666;
+    height: 80px;
+    background: url(images/quote.png) no-repeat left center;
+    clear: both;
+    padding-top: 20px;
+    font-family: 'Dancing Script', cursive;
+}
+
+div[role="main"] article.small-cats {
+    width: 180px;
+    float: left;
+    margin-bottom: 30px;
+}
+
+article.small-cats {
+    width: 170px;
+    height: 250px;
+    float: left;
+    position: relative;
+}
+
+article.small-cats img.entry-image {
+    width: 170px;
+    height: 80px;
+    border: 0;
+    padding-top: 26px;
+}
+
+article.small-cats h4 {
+    left: 0;
+    top: 0;
+    padding: 2px 24px;
+    width: 120px;
+    font-size: 90%;
+    position: absolute;
+    font-weight: bold;
+    color: #fff;
+    background: #333;
+    border-top: #444 solid 1px;
+    border-left: #444 solid 1px;
+    border-right: #444 solid 1px;
+}
+
+article.small-cats ul {
+    margin-left: 1.5em;
+}
+
+article.small-cats li a,
+article.small-cats li a:visited
+{
+    color: #333;
+    font-size: 0.7em;
+    line-height: 1.4em;
+}
+
+article.small-cats li a {
+    text-decoration: none;
+}
+
+article.small-cats li a:hover {
+    text-decoration: underline;
+}
+
 #site-header {
     text-align: center;
     margin-bottom: 20px;
