@@ -93,6 +93,15 @@ function eamann_widgets_init() {
 		'before_title' => '<h1 class="widget-title">',
 		'after_title' => '</h1>',
 	) );
+
+	register_sidebar( array(
+		'name' => __( 'Front Sidebar', 'eamann' ),
+		'id' => 'sidebar-front',
+		'before_widget' => '<aside id="%1$s" class="widget %2$s">',
+		'after_widget' => "</aside>",
+		'before_title' => '<h1 class="widget-title">',
+		'after_title' => '</h1>',
+	) );
 }
 add_action( 'widgets_init', 'eamann_widgets_init' );
 
@@ -139,3 +148,35 @@ function eamann_featured_image() {
 }
 
 add_image_size( 'eamann_featured', 340, 160 );
+
+register_widget( 'Journal_Entry' );
+class Journal_Entry extends  WP_Widget {
+	public function __construct() {
+		parent::__construct(
+			'journal_entry', // Base ID
+			'Journal_Entry', // Name
+			array( 'description' => __( 'Latest Journal Entry', 'eamann' ), ) // Args
+		);
+	}
+
+	public function form( $instance ) {
+
+	}
+
+	public function update( $new_instance, $old_instance ) {
+
+	}
+
+	public function widget( $args, $instance ) {
+		extract( $args );
+
+		$query_args = array(
+
+		);
+
+		echo $before_widget;
+		echo '<h3>From the Journal</h3>';
+
+		echo $after_widget;
+	}
+}

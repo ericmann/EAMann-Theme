@@ -22,6 +22,5 @@ if ( 1 == $paged ) {
 	get_template_part( 'index', 'older' );
 }
 
-get_sidebar();
 get_footer();
 ?>
