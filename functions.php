@@ -149,6 +149,27 @@ function eamann_featured_image() {
 
 add_image_size( 'eamann_featured', 340, 160 );
 
+function custom_excerpt_length( $length ) {
+	global $post;
+	switch ( get_post_format( $post->ID ) ) {
+		case "aside":
+			$length = 50;
+			break;
+		default:
+			$length = 20;
+	}
+
+	return $length;
+}
+add_filter( 'excerpt_length', 'custom_excerpt_length', 999 );
+
+function new_excerpt_more( $more ) {
+	global $post;
+
+	return ' <a class="more" href="' . get_permalink( $post->ID ) . '">&hellip;</a>';
+}
+add_filter('excerpt_more', 'new_excerpt_more');
+
 register_widget( 'Journal_Entry' );
 class Journal_Entry extends  WP_Widget {
 	public function __construct() {
@@ -171,11 +192,38 @@ class Journal_Entry extends  WP_Widget {
 		extract( $args );
 
 		$query_args = array(
-
+			'posts_per_page' => 10,
+			'tax_query'      => array(
+				array(
+					'taxonomy' => 'post_format',
+					'field'    => 'slug',
+					'terms'    => array( 'post-format-aside' )
+				)
+			)
 		);
+
+		$journals = new WP_Query( $query_args );
+		$first = true;
 
 		echo $before_widget;
 		echo '<h3>From the Journal</h3>';
+
+		while ( $journals->have_posts() ) : $journals->the_post();
+
+		if ( $first ) {
+			$first = false;
+			echo '<h4><a href="' . get_permalink() . '">' . get_the_date() . '</a></h4>';
+			echo '<div class="journal-entry">';
+			the_excerpt();
+			echo '</div>';
+			echo '<ul>';
+		} else {
+			echo '<li><a href="' . get_permalink() . '">' . get_the_date() . '</a></li>';
+		}
+
+		endwhile;
+
+		echo '</ul>';
 
 		echo $after_widget;
 	}

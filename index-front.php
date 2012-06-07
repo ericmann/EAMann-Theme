@@ -56,6 +56,12 @@ get_header(); ?>
 
 			<?php endif; ?>
 
+			<nav role="navigation" id="nav-front" class="site-navigation paging-navigation">
+				<div class="nav-previous">
+					<a href="<?php echo get_pagenum_link(2); ?>">Older posts <span class="meta-nav">&rarr;</span></a>
+				</div>
+			</nav>
+
 			<?php if ( $status->have_posts() ) : while ( $status->have_posts() ) : $status->the_post(); ?>
 
 				<aside class="status">

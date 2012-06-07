@@ -1,20 +1,33 @@
 <div id="primary" class="site-content">
 	<div id="content" role="main">
 
-	<?php if ( have_posts() ) : ?>
+	<?php
+	$offset = ((int) $paged - 2) * 10 + 4;
+
+	$args = array(
+		'posts_per_page' => 10,
+		'offset'         => $offset,
+		'tax_query'      => array(
+			array(
+				'taxonomy' => 'post_format',
+				'field'    => 'slug',
+				'terms'    => array( 'post-format-aside', 'post-format-status' ),
+				'operator' => 'NOT IN'
+			)
+		)
+	);
+
+	$query = new WP_Query( $args );
+	?>
+
+	<?php if ( $query->have_posts() ) : ?>
 
 		<?php eamann_content_nav( 'nav-above' ); ?>
 
 		<?php /* Start the Loop */ ?>
-		<?php while ( have_posts() ) : the_post(); ?>
+		<?php while ( $query->have_posts() ) : $query->the_post(); ?>
 
-			<?php
-				/* Include the Post-Format-specific template for the content.
-				 * If you want to overload this in a child theme then include a file
-				 * called content-___.php (where ___ is the Post Format name) and that will be used instead.
-				 */
-				get_template_part( 'content', get_post_format() );
-			?>
+			<?php get_template_part( 'front', 'single' ); ?>
 
 		<?php endwhile; ?>
 
@@ -28,3 +41,6 @@
 
 	</div><!-- #content -->
 </div><!-- #primary .site-content -->
+
+<?php get_sidebar( 'front' ); ?>
+<?php get_footer(); ?>

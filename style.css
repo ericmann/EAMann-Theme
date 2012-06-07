@@ -592,7 +592,7 @@ article {
 }
 
 article h4 {
-    top: 85px;
+    top: 70px;
     left: 0;
     padding: 6px 24px;
     width: 240px;
@@ -627,7 +627,7 @@ article h5 {
     font-size: 60%;
     left: 0;
     position: absolute;
-    top: 125px;
+    top: 130px;
     color: #fff;
     text-transform: uppercase;
     background: #333;
@@ -717,6 +717,12 @@ article.small-cats li a:hover {
     text-decoration: underline;
 }
 
+article a.more,
+article a.more:visited {
+    color: #404040;
+    text-decoration: none;
+}
+
 #secondary aside {
     text-align: center;
 }
@@ -725,6 +731,42 @@ article.small-cats li a:hover {
     color: #fff;
     font-weight: bold;
 }
+
+#secondary aside h4,
+.widget_journal_entry ul li {
+    font-weight: bold;
+    font-family: 'Dancing Script', cursive;
+}
+
+    #secondary aside h4 a,
+    .widget_journal_entry ul li a {
+        color: #ddd;
+        text-decoration: none;
+    }
+
+    #secondary aside h4 a:hover,
+    .widget_journal_entry ul li a:hover {
+        color: #fff;
+    }
+
+    .widget_journal_entry ul {
+        margin-left: 0;
+    }
+
+    .widget_journal_entry ul li {
+        list-style-type: none;
+    }
+
+#secondary aside .journal-entry {
+    color: #ccc;
+    width: 240px;
+    padding: 10px;
+}
+    #secondary aside .journal-entry a,
+    #secondary aside .journal-entry a:visited {
+        color: #ccc;
+        text-decoration: none;
+    }
 
 #site-header {
     text-align: center;
@@ -738,4 +780,58 @@ article.small-cats li a:hover {
     #site-header h1 a:visited {
         color: #fff;
         text-decoration: none;
+    }
+
+nav#nav-front {
+    clear: both;
+    padding-left: 20px;
+    padding-right: 20px;
+    position: relative;
+    top: -20px;
+}
+    nav#nav-front a {
+        color: #404040;
+        text-decoration: none;
+        font-weight: bold;
+        font-style: italic;
+    }
+    nav#nav-front .nav-previous {
+        float: right;
+        text-align: right;
+    }
+
+nav#nav-above {
+    padding-right: 20px;
+}
+    nav#nav-above a {
+        color: #404040;
+        text-decoration: none;
+        font-weight: bold;
+        font-style: italic;
+    }
+    nav#nav-above .nav-previous {
+        float: right;
+        text-align: right;
+    }
+    nav#nav-above .nav-next {
+        float: left;
+        text-align: left;
+    }
+
+footer.site-footer {
+    background: url(images/sidebar-background.png) repeat;
+    border-top: 4px double #a22;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    text-align: center;
+    clear: both;
+}
+    footer.site-footer a,
+    footer.site-footer a:visited {
+        text-decoration: none;
+        color: #404040;
+    }
+    footer.site-footer a:hover {
+        text-decoration: underline;
+        color: #404040;
     }
