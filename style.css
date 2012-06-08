@@ -876,6 +876,14 @@ footer.site-footer {
     top: 100px;
 }
 
+.single-post h1,
+.single-post h2,
+.single-post h3,
+.single-post h4,
+.single-post h5 {
+    clear: none;
+}
+
 .single-post div[role="main"] article {
     width: 700px;
     height: inherit;
