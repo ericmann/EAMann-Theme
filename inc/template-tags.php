@@ -25,10 +25,17 @@ function eamann_content_nav( $nav_id ) {
 	<nav role="navigation" id="<?php echo $nav_id; ?>" class="<?php echo $nav_class; ?>">
 		<h1 class="assistive-text"><?php _e( 'Post navigation', 'eamann' ); ?></h1>
 
-	<?php if ( is_single() ) : // navigation links for single posts ?>
+	<?php if ( is_single() && ! has_post_format( 'aside' ) && ! has_post_format( 'status' ) ) : // navigation links for single posts ?>
 
-		<?php previous_post_link( '<div class="nav-previous">%link</div>', '<span class="meta-nav">' . _x( '&larr;', 'Previous post link', 'eamann' ) . '</span> %title' ); ?>
-		<?php next_post_link( '<div class="nav-next">%link</div>', '%title <span class="meta-nav">' . _x( '&rarr;', 'Next post link', 'eamann' ) . '</span>' ); ?>
+		<?php
+			// Get Journal category to exclude it.
+		    $cat_to_exclude = get_category_by_slug( 'journal' );
+			$cat_id = $cat_to_exclude->term_id;
+		?>
+
+		<?php previous_post_link( '<div class="nav-previous">%link</div>', '%title <span class="meta-nav">' . _x( '&rarr;', 'Previous post link', 'eamann' ) . '</span>', false, $cat_id ); ?>
+		<?php next_post_link( '<div class="nav-next">%link</div>', '<span class="meta-nav">' . _x( '&larr;', 'Next post link', 'eamann' ) . '</span> %title', false, $cat_id ); ?>
+	<?php elseif ( is_single() ) : ?>
 
 	<?php elseif ( $wp_query->max_num_pages > 1 && ( is_home() || is_archive() || is_search() ) ) : // navigation links for home, archive, and search pages ?>
 
@@ -69,25 +76,32 @@ function eamann_comment( $comment, $args, $depth ) {
 	?>
 	<li <?php comment_class(); ?> id="li-comment-<?php comment_ID(); ?>">
 		<article id="comment-<?php comment_ID(); ?>" class="comment">
-			<footer>
+			<footer class="comment-meta">
 				<div class="comment-author vcard">
-					<?php echo get_avatar( $comment, 40 ); ?>
-					<?php printf( __( '%s <span class="says">says:</span>', 'eamann' ), sprintf( '<cite class="fn">%s</cite>', get_comment_author_link() ) ); ?>
+					<?php
+					    $avatar_size = 68;
+						if ( '0' != $comment->comment_parent )
+							$avatar_size = 39;
+
+						echo get_avatar( $comment, $avatar_size );
+
+						/* translators: 1: comment author, 2: date and time */
+						printf( __( '%1$s on %2$s <span class="says">said:</span>', 'eamann' ),
+							sprintf( '<span class="fn">%s</span>', get_comment_author_link() ),
+							sprintf( '<a href="%1$s"><time pubdate datetime="%2$s">%3$s</time></a>',
+								esc_url( get_comment_link( $comment->comment_ID ) ),
+								get_comment_time( 'c' ),
+								/* translators: 1: date, 2: time */
+								sprintf( __( '%1$s at %2$s', 'eamann' ), get_comment_date(), get_comment_time() )
+							)
+						);
+					?>
+					<?php edit_comment_link( __( 'Edit', 'twentyeleven' ), '<span class="edit-link">', '</span>' ); ?>
 				</div><!-- .comment-author .vcard -->
 				<?php if ( $comment->comment_approved == '0' ) : ?>
 					<em><?php _e( 'Your comment is awaiting moderation.', 'eamann' ); ?></em>
 					<br />
 				<?php endif; ?>
-
-				<div class="comment-meta commentmetadata">
-					<a href="<?php echo esc_url( get_comment_link( $comment->comment_ID ) ); ?>"><time pubdate datetime="<?php comment_time( 'c' ); ?>">
-					<?php
-						/* translators: 1: date, 2: time */
-						printf( __( '%1$s at %2$s', 'eamann' ), get_comment_date(), get_comment_time() ); ?>
-					</time></a>
-					<?php edit_comment_link( __( '(Edit)', 'eamann' ), ' ' );
-					?>
-				</div><!-- .comment-meta .commentmetadata -->
 			</footer>
 
 			<div class="comment-content"><?php comment_text(); ?></div>
