@@ -601,9 +601,10 @@ footer {
 }
 
 div[role="main"] article {
-    width: 360px;
+    width: 340px;
     float: left;
     margin-bottom: 30px;
+    padding-right: 20px;
 }
 
 article {
@@ -643,6 +644,11 @@ article h4.category-faith {
 
 article h4.category-tech {
     background: green;
+}
+
+.archive article.category-journal h4.entry-title {
+    background: #404040;
+    display: block;
 }
 
 article h5 {
@@ -689,6 +695,7 @@ div[role="main"] article.small-cats {
     width: 180px;
     float: left;
     margin-bottom: 30px;
+    padding-right: 0;
 }
 
 article.small-cats {
@@ -746,6 +753,10 @@ article a.more:visited {
     text-decoration: none;
 }
 
+#secondary {
+    min-height: 600px;
+}
+
 #secondary aside {
     text-align: center;
 }
@@ -789,6 +800,30 @@ article a.more:visited {
     #secondary aside .journal-entry a:visited {
         color: #ccc;
         text-decoration: none;
+    }
+
+#secondary aside#post-meta {
+    text-align: left;
+    margin-left: 10px;
+}
+    #secondary aside#post-meta p {
+        font-size: 0.8em;
+        margin-bottom: 2px;
+        line-height: 1.4em;
+        text-indent: -60px;
+        padding-left: 110px;
+    }
+    #secondary aside#post-meta p strong {
+        width: 56px;
+        display: inline-block;
+    }
+    #secondary aside#post-meta a,
+    #secondary aside#post-meta a:visited {
+        text-decoration: none;
+        color: #404040;
+    }
+    #secondary aside#post-meta a:hover {
+        text-decoration: underline;
     }
 
 #site-header {

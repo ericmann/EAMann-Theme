@@ -102,6 +102,15 @@ function eamann_widgets_init() {
 		'before_title' => '<h1 class="widget-title">',
 		'after_title' => '</h1>',
 	) );
+
+	register_sidebar( array(
+		'name' => __( 'Single Post Sidebar', 'eamann' ),
+		'id' => 'sidebar-single',
+		'before_widget' => '<aside id="%1$s" class="widget %2$s">',
+		'after_widget' => "</aside>",
+		'before_title' => '<h1 class="widget-title">',
+		'after_title' => '</h1>',
+	) );
 }
 add_action( 'widgets_init', 'eamann_widgets_init' );
 
@@ -151,12 +160,16 @@ add_image_size( 'eamann_featured', 340, 160 );
 
 function custom_excerpt_length( $length ) {
 	global $post;
-	switch ( get_post_format( $post->ID ) ) {
-		case "aside":
-			$length = 50;
-			break;
-		default:
-			$length = 20;
+	if ( is_tag() || is_category() || is_date() ) {
+		$length = 20;
+	} else {
+		switch ( get_post_format( $post->ID ) ) {
+			case "aside":
+				$length = 50;
+				break;
+			default:
+				$length = 20;
+		}
 	}
 
 	return $length;
