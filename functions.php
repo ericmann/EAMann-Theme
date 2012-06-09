@@ -183,6 +183,28 @@ function new_excerpt_more( $more ) {
 }
 add_filter('excerpt_more', 'new_excerpt_more');
 
+function remove_status_aside_from_feed( $wp_query ) {
+	if ( ! $wp_query->is_feed() )
+		return;
+
+	$formats_to_exclude = array(
+		'post-format-status',
+		'post-format-aside'
+	);
+
+	$tax_query = $wp_query->get( 'tax_query' );
+
+	$tax_query[] = array(
+		'taxonomy' => 'post_format',
+		'field'    => 'slug',
+		'terms'    => $formats_to_exclude,
+		'operator' => 'NOT IN'
+	);
+
+	$wp_query->set( 'tax_query', $tax_query );
+}
+add_action( 'pre_get_posts', 'remove_status_aside_from_feed' );
+
 register_widget( 'Journal_Entry' );
 class Journal_Entry extends  WP_Widget {
 	public function __construct() {
