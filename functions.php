@@ -148,7 +148,8 @@ function eamann_featured_image() {
 	global $post;
 
 	if ( has_post_thumbnail( $post->ID ) ) {
-		echo get_the_post_thumbnail( $post->ID, 'eamann_featured' );
+		$post_thumbnail_id = get_the_post_thumbnail_id( $post->ID, 'eamann_featured' );
+		echo wp_get_attachment_src( $post_thumbnail_id, 'eamann_featured' );
 	} else {
 		$id = (int) $post->ID;
 
